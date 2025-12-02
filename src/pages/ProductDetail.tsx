@@ -2,13 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Navbar } from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { Heart, ThumbsUp, ArrowLeft } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Heart, ThumbsUp, ArrowLeft, User } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { Textarea } from "@/components/ui/textarea";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Separator } from "@/components/ui/separator";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -21,6 +23,13 @@ export default function ProductDetail() {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  
+  // Check if product is new (created within last 30 days)
+  const isNew = product?.created_at ? 
+    (Date.now() - new Date(product.created_at).getTime()) < 30 * 24 * 60 * 60 * 1000 : 
+    false;
+  const hasDiscount = product?.sale_price && product.sale_price < product.price;
+  const displayPrice = product?.sale_price || product?.price;
 
   useEffect(() => {
     if (id) {
@@ -205,12 +214,17 @@ export default function ProductDetail() {
 
         <div className="grid md:grid-cols-2 gap-12">
           {/* Product Image */}
-          <div className="aspect-[3/4] overflow-hidden rounded-lg bg-muted">
+          <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-muted">
             <img
               src={product.image_url}
               alt={product.title}
               className="w-full h-full object-cover"
             />
+            <div className="absolute top-4 left-4 flex flex-col gap-2">
+              {isNew && <Badge variant="new">New</Badge>}
+              {hasDiscount && <Badge variant="sale">Sale</Badge>}
+              {product.is_featured && <Badge variant="featured">Featured</Badge>}
+            </div>
           </div>
 
           {/* Product Info */}
@@ -221,9 +235,16 @@ export default function ProductDetail() {
               </p>
             )}
             <h1 className="text-4xl font-serif font-bold">{product.title}</h1>
-            <p className="text-3xl font-serif font-semibold text-accent">
-              ${parseFloat(product.price).toFixed(2)}
-            </p>
+            <div className="flex items-center gap-3">
+              <p className="text-3xl font-serif font-semibold text-accent">
+                ${parseFloat(displayPrice).toFixed(2)}
+              </p>
+              {hasDiscount && (
+                <p className="text-xl text-muted-foreground line-through">
+                  ${parseFloat(product.price).toFixed(2)}
+                </p>
+              )}
+            </div>
             
             <div className="flex gap-4">
               <Button
@@ -252,21 +273,43 @@ export default function ProductDetail() {
               </p>
             </div>
 
-            <div className="border-t pt-6">
-              <h3 className="font-serif text-xl mb-3">Details</h3>
-              <dl className="space-y-2">
-                <div className="flex justify-between">
+            <Separator />
+            
+            <div className="space-y-4">
+              <h3 className="font-serif text-xl">Details</h3>
+              <dl className="space-y-3">
+                <div className="flex justify-between py-2">
                   <dt className="text-muted-foreground">Category</dt>
                   <dd className="font-medium capitalize">{product.category}</dd>
                 </div>
-                {seller && (
-                  <div className="flex justify-between">
-                    <dt className="text-muted-foreground">Seller</dt>
-                    <dd className="font-medium">{seller.full_name}</dd>
+                {product.brand && (
+                  <div className="flex justify-between py-2">
+                    <dt className="text-muted-foreground">Brand</dt>
+                    <dd className="font-medium">{product.brand}</dd>
                   </div>
                 )}
               </dl>
             </div>
+            
+            {seller && (
+              <>
+                <Separator />
+                <div className="space-y-4">
+                  <h3 className="font-serif text-xl">Seller Information</h3>
+                  <div className="flex items-center gap-3 p-4 bg-muted/50 rounded-lg">
+                    <Avatar className="h-12 w-12">
+                      <AvatarFallback>
+                        <User className="h-6 w-6" />
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <p className="font-medium">{seller.full_name}</p>
+                      <p className="text-sm text-muted-foreground">Verified Seller</p>
+                    </div>
+                  </div>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
