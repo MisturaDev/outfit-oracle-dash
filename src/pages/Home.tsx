@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { Navbar } from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { ProductCardEnhanced } from "@/components/ProductCardEnhanced";
 import { QuickViewModal } from "@/components/QuickViewModal";
 import { PromoBanner } from "@/components/PromoBanner";
@@ -427,6 +428,9 @@ export default function Home() {
         isOpen={isQuickViewOpen}
         onClose={() => setIsQuickViewOpen(false)}
       />
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
