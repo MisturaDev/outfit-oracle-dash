@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -83,12 +84,12 @@ All colors MUST be HSL.
     --border: 0 0% 18%;
     --input: 0 0% 18%;
     --ring: 150 40% 35%;
-    
+
     --gradient-hero: linear-gradient(135deg, hsl(0 0% 10%), hsl(0 0% 12%));
     --gradient-accent: linear-gradient(135deg, hsl(150 40% 35%), hsl(150 45% 40%));
     --shadow-elegant: 0 10px 30px -10px hsl(0 0% 0% / 0.3);
     --shadow-hover: 0 20px 40px -15px hsl(0 0% 0% / 0.4);
-    
+
     --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 40 20% 97%;
     --sidebar-primary: 40 20% 97%;
@@ -109,9 +110,12 @@ All colors MUST be HSL.
     @apply bg-background text-foreground font-sans antialiased;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif;
   }
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
