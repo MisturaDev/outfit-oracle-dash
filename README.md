@@ -30,11 +30,12 @@ A modern, responsive e-commerce marketplace built with React, Vite and Supabase.
 
 | Home | Product | Dashboard |
 |------|--------|-----------|
-| ![](./screenshots/home.png) | ![](./screenshots/product-detail.png) | ![](./screenshots/seller-dashboard.png) |
+| ![](./public/screenshots/home.png) | ![](./public/screenshots/product-detail.png) | ![](./public/screenshots/seller-dashboard.png) |
 
 | Wishlist | Cart | Settings |
 |---------|------|----------|
-| ![](./screenshots/wishlist.png) | ![](./screenshots/cart.png) | 
+| ![](./public/screenshots/wishlist.png) | ![](./public/screenshots/cart.png) | 
+
 
 
 ## Installation
