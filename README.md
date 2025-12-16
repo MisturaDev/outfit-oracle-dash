@@ -18,7 +18,7 @@ A modern, responsive e-commerce marketplace built with React, Vite and Supabase.
 - **Responsive Design**: Beautiful UI built with Tailwind CSS and Shadcn UI.
 
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Frontend**: React, TypeScript, Vite
 - **Styling**: Tailwind CSS, Shadcn UI
