@@ -28,6 +28,7 @@ export default function ProductDetail() {
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Check if product is new (created within last 30 days)
   const isNew = product?.created_at ?
@@ -170,18 +171,25 @@ export default function ProductDetail() {
 
     if (!newComment.trim()) return;
 
-    const { error } = await supabase
-      .from("comments")
-      .insert({
-        user_id: user.id,
-        product_id: id,
-        content: newComment,
-      });
+    setIsSubmitting(true);
+    try {
+      const { error } = await supabase
+        .from("comments")
+        .insert({
+          user_id: user.id,
+          product_id: id,
+          content: newComment,
+        });
 
-    if (!error) {
+      if (error) throw error;
+
       setNewComment("");
       fetchComments();
       toast.success("Comment added!");
+    } catch (error: any) {
+      toast.error(error.message || "Failed to submit comment");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -340,8 +348,11 @@ export default function ProductDetail() {
                 placeholder="Share your thoughts..."
                 className="mb-3"
                 maxLength={500}
+                disabled={isSubmitting}
               />
-              <Button type="submit">Post Comment</Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Posting..." : "Post Comment"}
+              </Button>
             </form>
           )}
 
