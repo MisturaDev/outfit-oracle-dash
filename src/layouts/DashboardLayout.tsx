@@ -6,7 +6,7 @@ import {
     ShoppingBag,
     Settings,
     Menu,
-    X,
+    ArrowLeft,
     LogOut,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -61,7 +61,12 @@ export default function DashboardLayout() {
                 )}
             >
                 <div className="h-full flex flex-col">
-                    <div className="h-16 flex items-center px-6 border-b">
+                    <div className="h-16 flex items-center px-4 gap-2 border-b">
+                        <Link to="/">
+                            <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-gray-100">
+                                <ArrowLeft className="h-4 w-4" />
+                            </Button>
+                        </Link>
                         <Link to="/" className="text-xl font-serif font-bold">
                             StyleHub <span className="text-xs font-sans font-normal text-muted-foreground ml-1">Seller</span>
                         </Link>
@@ -102,15 +107,22 @@ export default function DashboardLayout() {
             {/* Main Content Wrapper */}
             <div className="lg:pl-64 min-h-screen flex flex-col transition-all duration-300">
                 {/* Top Header (Mobile Toggle) */}
-                <header className="h-16 bg-white border-b flex items-center px-4 lg:hidden sticky top-0 z-30">
-                    <Button
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                    >
-                        <Menu className="h-6 w-6" />
-                    </Button>
-                    <span className="ml-4 font-semibold">Dashboard</span>
+                <header className="h-16 bg-white border-b flex items-center justify-between px-4 lg:hidden sticky top-0 z-30">
+                    <div className="flex items-center gap-2">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                        >
+                            <Menu className="h-6 w-6" />
+                        </Button>
+                        <span className="font-semibold">Dashboard</span>
+                    </div>
+                    <Link to="/">
+                        <Button variant="ghost" size="icon">
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                    </Link>
                 </header>
 
                 {/* Page Content */}
