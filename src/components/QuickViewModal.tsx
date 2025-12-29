@@ -128,11 +128,11 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl p-0 overflow-hidden">
+      <DialogContent className="w-[90vw] max-w-3xl p-0 overflow-hidden max-h-[90vh] overflow-y-auto">
         <DialogTitle className="sr-only">Quick View: {product.title}</DialogTitle>
-        <div className="grid md:grid-cols-2">
+        <div className="grid md:grid-cols-2 h-full">
           {/* Image */}
-          <div className="relative aspect-square bg-muted">
+          <div className="relative aspect-video md:aspect-square bg-muted">
             <img
               src={product.image_url}
               alt={product.title}
@@ -146,7 +146,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
           </div>
 
           {/* Details */}
-          <div className="p-6 flex flex-col">
+          <div className="p-4 md:p-6 flex flex-col">
             <Button
               variant="ghost"
               size="icon"
@@ -161,7 +161,7 @@ export function QuickViewModal({ product, isOpen, onClose }: QuickViewModalProps
                 {product.brand}
               </p>
             )}
-            <h2 className="text-2xl font-serif font-bold mb-2">{product.title}</h2>
+            <h2 className="text-xl md:text-2xl font-serif font-bold mb-2">{product.title}</h2>
 
             <div className="flex items-center gap-3 mb-4">
               <p className="text-2xl font-serif font-semibold text-accent">
