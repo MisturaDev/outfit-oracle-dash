@@ -195,7 +195,7 @@ export default function SellerProducts() {
                                     maxLength={1000}
                                 />
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="price">Price *</Label>
                                     <Input
@@ -220,7 +220,7 @@ export default function SellerProducts() {
                                     />
                                 </div>
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="category">Category *</Label>
                                     <Select value={category} onValueChange={setCategory} required>
